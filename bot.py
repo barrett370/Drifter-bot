@@ -19,6 +19,10 @@ async def on_message(message):
     if message.content.lower().__contains__("poggers"):
         await message.channel.send(f"{message.author.mention} Fuck off")
 
+    if message.content.upper() == message.content:
+        msg = f"Automated Translation: {message.content.lower()}"
+        await message.channel.send(msg)
+
 
 
 token = open(".envrc").read().split("=")[1]
