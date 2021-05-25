@@ -1,7 +1,10 @@
 import discord
+from discord.ext import commands
+from discord.message import File
 import os
 
 client = discord.Client()
+bot = commands.Bot(command_prefix='!')
 
 
 @client.event
@@ -23,6 +26,8 @@ async def on_message(message):
         msg = f"Automated Translation: {message.content.lower()}"
         await message.channel.send(msg)
 
+    if message.content.lower().__contains__("indeed") and message.author != client.user:
+        await message.channel.send("http://barrett370.github.io/Ricardo-bot/ricardo-resources/indeed.jpeg")
 
 
 token = open(".envrc").read().split("=")[1]

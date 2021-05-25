@@ -8,6 +8,7 @@ discord = "*"
 
 [dev-packages]
 pylint = "*"
+jedi = "*"
 
 [requires]
 python_version = "3.9"
