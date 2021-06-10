@@ -104,6 +104,7 @@ async def on_message(message):
         elif message.content.split(" ")[0][1:] == "raid":
             print("new command")
             await raid(message)
+            await message.add_reaction("👍")
 
     if message.content.lower().__contains__("poggers"):
         await message.channel.send(f"{message.author.mention} Fuck off")
