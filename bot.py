@@ -125,7 +125,7 @@ async def on_message(message):
 "Go throw some Taken at your friends.",
 "You're always welcome on the Derelict."
             ]
-    if random.choices([True,False], weights=[0.01,0.99]) == True:
+    if random.choices([True,False], weights=[0.01,0.99])[0]:
         await message.channel.send(drifter_phrases[random.randint(0,len(drifter_phrases)-1)])
 
 
