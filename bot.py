@@ -8,6 +8,12 @@ import random
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 
+class RaidType(Enum):
+    LAST_WISH = 1
+    GARDEN_OF_SALVATION = 2
+    DEEPSTONE_CRYPT = 3
+    VAULT_OF_GLASS = 4
+
 class Raid():
     
     def __init__(self,name,date,time):
@@ -50,11 +56,24 @@ def save_raids():
 
 
 def new_raid(ms):
-    name = ms[1]
+    name = ms[1].lower()
+    raid_type = None
+    if name.__contains__("garden") or name.__contains__("gos"):
+        raid_type = RaidType.GARDEN_OF_SALVATION
+    elif name.__contains__("wish"):
+        raid_type = RaidType.LAST_WISH
+    elif name.__contains__("deepstone") or name.__contains__("dsc"):
+        raid_type = RaidType.DEEPSTONE_CRYPT
+    elif name.__contains__("vault") or name.__contains__("vog"):
+        raid_type = RaidType.VAULT_OF_GLASS
+
     date = ms[2]
     time = ms[3]
-    raid = Raid(name,date,time)
-    print(f"added new raid {raid}")
+    if raid_type is not None:
+        raid = Raid(raid_type,date,time)
+    else:
+        raid = Raid(name,date,time)
+
     raids.append(raid)
     save_raids()
     pass
@@ -109,9 +128,9 @@ async def on_message(message):
     if message.content.lower().__contains__("poggers"):
         await message.channel.send(f"{message.author.mention} Fuck off")
 
-    if message.content.upper() == message.content:
-        msg = f"Automated Translation: {message.content.lower()}"
-        await message.channel.send(msg)
+    #if message.content.upper() == message.content:
+    #    msg = f"Automated Translation: {message.content.lower()}"
+    #    await message.channel.send(msg)
 
     if message.content.lower().__contains__("indeed") and message.author != client.user:
         await message.channel.send("http://barrett370.github.io/Ricardo-bot/ricardo-resources/indeed.jpeg")
