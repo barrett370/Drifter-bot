@@ -7,6 +7,7 @@ import random
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
+datastore = "data/raids.pkl"
 
 class Raid():
     
@@ -34,16 +35,16 @@ class Raid():
 def init():
     global raids
     try:
-        ledger = open("raids.pkl","rb")
+        ledger = open(datastore,"rb")
         raids = pickle.load(ledger)
         ledger.close()
     except:
-        open("raids.pkl","w+").close()
+        open(datastore,"w+").close()
         raids = []
     print(raids)
        
 def save_raids():
-    ledger = open("raids.pkl","wb")
+    ledger = open(datastore,"wb")
     pickle.dump(raids,ledger)
     ledger.close()
     
@@ -103,15 +104,20 @@ async def on_message(message):
             await message.channel.send("pong!")
         elif message.content.split(" ")[0][1:] == "raid":
             print("new command")
-            await raid(message)
-            await message.add_reaction("👍")
+            try:
+                await raid(message)
+                await message.add_reaction("👍")
+            except:
+                await message.add_reaction("👎")
+
+
 
     if message.content.lower().__contains__("poggers"):
         await message.channel.send(f"{message.author.mention} Fuck off")
 
-    if message.content.upper() == message.content:
-        msg = f"Automated Translation: {message.content.lower()}"
-        await message.channel.send(msg)
+    #if message.content.upper() == message.content:
+    #    msg = f"Automated Translation: {message.content.lower()}"
+    #    await message.channel.send(msg)
 
     if message.content.lower().__contains__("indeed") and message.author != client.user:
         await message.channel.send("http://barrett370.github.io/Ricardo-bot/ricardo-resources/indeed.jpeg")
