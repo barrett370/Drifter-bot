@@ -1,6 +1,6 @@
 FROM python
 
-ARG DISCORD_TOKEN
+ENV DISCORD_TOKEN=nothing
 
 RUN mkdir app
 COPY . app
