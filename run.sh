@@ -1,3 +1,4 @@
 #!/bin/sh
 
-DISCORD_TOKEN=$1 pipenv run python bot.py
+echo DISCORD_TOKEN="${1}" > .envrc
+pipenv run python bot.py
