@@ -9,3 +9,4 @@ WORKDIR app
 RUN pip install pipenv
 RUN pipenv install
 # CMD pipenv run python bot.py
+ENTRYPOINT ["./run.sh"]
