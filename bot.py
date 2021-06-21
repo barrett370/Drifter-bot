@@ -7,7 +7,7 @@ import random
 
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
-datastore = "data/raids.pkl"
+datastore = "/app/data/raids.pkl"
 
 class Raid():
     
