@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 discord = "*"
+schedule = "*"
+datetime = "*"
 
 [dev-packages]
 pylint = "*"

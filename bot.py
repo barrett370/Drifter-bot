@@ -1,13 +1,36 @@
 import discord
 import pickle
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.message import File
 import os
 import random
+from datetime import date, datetime
 
-client = discord.Client()
-bot = commands.Bot(command_prefix='!')
+#bot = commands.Bot(command_prefix='!')
 datastore = "/pdata/raids.pkl"
+
+
+class DrifterClient(discord.Client):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args,**kwargs)
+
+        self.reset.start()
+
+    @tasks.loop(minutes=10)
+    async def reset(self):
+        day = datetime.today().weekday()
+        if day == 1:
+            time = datetime.now().time()
+            if time >= datetime.time(18,0,0,0):
+                for channel in self.get_all_channels():
+                    if channel.name=='general':
+                        await channel.send('/poll question:When are you free to raid? choice_a:Tues choice_b:Wed choice_c:Thurs choice_d:Fri choice_e:Sat choice_f:Sun choice_g:Mon ')
+
+
+
+
+client = DrifterClient()
+
 
 class Raid():
     
@@ -141,3 +164,4 @@ token = open(".envrc").read().split("=")[1]
 init()
 
 client.run(token)
+reset.start()
