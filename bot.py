@@ -13,18 +13,22 @@ datastore = "/pdata/raids.pkl"
 class DrifterClient(discord.Client):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args,**kwargs)
-
+        self.is_reset = True
         self.reset.start()
+
 
     @tasks.loop(minutes=10)
     async def reset(self):
         day = datetime.today().weekday()
         if day == 1:
             time = datetime.now().time()
-            if time >= datetime.time(18,0,0,0):
+            if time >= datetime.time(18,0,0,0) and self.is_reset:
                 for channel in self.get_all_channels():
                     if channel.name=='general':
                         await channel.send('/poll question:When are you free to raid? choice_a:Tues choice_b:Wed choice_c:Thurs choice_d:Fri choice_e:Sat choice_f:Sun choice_g:Mon ')
+                        self.is_reset = False
+        else:
+            self.is_reset=True
 
 
 
