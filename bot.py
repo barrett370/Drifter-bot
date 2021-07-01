@@ -1,10 +1,10 @@
 import discord
 import pickle
-from discord.ext import commands, tasks
-from discord.message import File
+from discord.ext import tasks
+# from discord.message import File
 import os
 import random
-from datetime import date, datetime
+from datetime import datetime
 
 #bot = commands.Bot(command_prefix='!')
 datastore = "/pdata/raids.pkl"
