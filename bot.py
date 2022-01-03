@@ -146,9 +146,6 @@ async def on_message(message):
     #    msg = f"Automated Translation: {message.content.lower()}"
     #    await message.channel.send(msg)
 
-    if message.content.lower().__contains__("indeed") and message.author != client.user:
-        await message.channel.send("http://barrett370.github.io/Ricardo-bot/ricardo-resources/indeed.jpeg")
-
     drifter_phrases = [
 "Ding, Ding, Ding, Ding, Ding!",
 "Oooh!",
